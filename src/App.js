@@ -52,6 +52,11 @@ function App() {
     setResumeList(newResumeList);
   };
 
+  const deleteHandler = (objId) => {
+    const newResumeList = resumeList.filter((element) => element.id !== objId);
+    setResumeList(newResumeList);
+  };
+
   const creatingJsxResumeList = (list) => {
     return list.map((eachObj) => {
       let isIncome;
@@ -74,7 +79,11 @@ function App() {
               editHandler(event, eachObj);
             }}
             text='Edit'></Button>
-          <Button text='Delete'></Button>
+          <Button
+            click={() => {
+              deleteHandler(eachObj.id);
+            }}
+            text='Delete'></Button>
         </li>
       ) : (
         <li key={eachObj.id}>
@@ -90,7 +99,6 @@ function App() {
                   'Sorry but you will need to specify if it it an Income or not '
                 );
               }
-              console.log();
               return sumitEditForm(event, eachObj, isIncome);
             }}
             obj={eachObj}></EditForm>

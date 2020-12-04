@@ -2,7 +2,6 @@ import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
 
 let EditForm = ({ click, change, obj }) => {
-    // let isItIncome = (event) => {event.target.value === 'Income' ? true : false };
 
   return (
     <form onSubmit={(event) => event.preventDefault()}>
@@ -12,7 +11,6 @@ let EditForm = ({ click, change, obj }) => {
         <label>
           <Input
             change={change}
-            wasselected={false}
             name='resume-type'
             type='radio'
             value='Income'></Input>
@@ -20,7 +18,6 @@ let EditForm = ({ click, change, obj }) => {
         </label>
         <label>
           <Input
-            wasselected={false}
             change={change}
             name='resume-type'
             type='radio'
