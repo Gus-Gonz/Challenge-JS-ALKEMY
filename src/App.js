@@ -88,7 +88,8 @@ function App() {
   };
 
   const creatingJsxResumeList = (list) => {
-    return list.map((eachObj) => {
+    let newList = list.length <11 ? list : list.slice(list.length-10)
+    return newList.map((eachObj) => {
       let isIncome;
 
       const radioButtonHandler = (event) => {
