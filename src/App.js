@@ -4,10 +4,10 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import ItemResume from './components/ItemResume/ItemResume';
 import Button from './components/Button/Button';
 import Input from './components/Input/Input';
-import EditForm from './containers/Form/EditForm';
+import EditForm from './containers/Form/Form';
 
 import ResumePage from './pages/ResumePage';
-import EditePage from './pages/EditePage';
+import AddPage from './pages/AddPage';
 import ExprensesPage from './pages/ExprensesPage';
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
     { id: 4, value: 1000, isIncome: true, edit: false },
   ]);
 
-  const sumitEditForm = (event, obj, isIncomevalue) => {
+  const sumitEditForm = (event, obj, isIncomeValue = obj.isIncome) => {
     const newResumeList = [...resumeList];
 
     const inputValue = event.target.closest('form').querySelector('input')
@@ -29,7 +29,7 @@ function App() {
     const newResumeELement = { ...newResumeList[resumeElementIndex] };
 
     newResumeELement.value = parseInt(inputValue);
-    newResumeELement.isIncome = isIncomevalue;
+    newResumeELement.isIncome = isIncomeValue;
     newResumeELement.edit = false;
 
     newResumeList[resumeElementIndex] = newResumeELement;
@@ -55,6 +55,36 @@ function App() {
   const deleteHandler = (objId) => {
     const newResumeList = resumeList.filter((element) => element.id !== objId);
     setResumeList(newResumeList);
+  };
+
+  const gettingResumeNum = (list) => {
+    let sum = 0;
+    list.forEach((element) => {
+      return element.isIncome
+        ? (sum = sum + element.value)
+        : (sum = sum - element.value);
+    });
+    return sum;
+  };
+
+  const sumitAddHandler = (event, isIncomeValue) => {
+    const inputValue = parseInt(
+      event.target.parentElement.querySelector('input').value.trim()
+    );
+    const newResumeList = [...resumeList];
+
+    const newResumeELement = {
+      id: newResumeList[newResumeList.length - 1].id + 1,
+      value: inputValue,
+      isIncome: isIncomeValue,
+      edit: false,
+    };
+
+    newResumeList.push(newResumeELement);
+    setResumeList(newResumeList);
+
+    event.target.parentElement.querySelector('input').value = '';
+    event.target.closest('main').querySelector('nav').firstElementChild.click();
   };
 
   const creatingJsxResumeList = (list) => {
@@ -94,27 +124,14 @@ function App() {
                 event.target.closest('form').querySelector('input').value === ''
               ) {
                 return alert('you need to put a number');
-              } else if (isIncome === undefined) {
-                return alert(
-                  'Sorry but you will need to specify if it it an Income or not '
-                );
               }
+
               return sumitEditForm(event, eachObj, isIncome);
             }}
             obj={eachObj}></EditForm>
         </li>
       );
     });
-  };
-
-  const gettingResumeNum = (list) => {
-    let sum = 0;
-    list.forEach((element) => {
-      return element.isIncome
-        ? (sum = sum + element.value)
-        : (sum = sum - element.value);
-    });
-    return sum;
   };
 
   return (
@@ -129,6 +146,10 @@ function App() {
                 resumeNum={gettingResumeNum(resumeList)}
                 resumeList={creatingJsxResumeList(resumeList)}></ResumePage>
             )}
+          />
+          <Route
+            path='/adding'
+            render={() => <AddPage sumitHandler={sumitAddHandler}></AddPage>}
           />
         </Switch>
       </main>
