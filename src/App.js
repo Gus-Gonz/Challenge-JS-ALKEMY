@@ -12,16 +12,49 @@ import ExprensesPage from './pages/ExprensesPage';
 
 function App() {
   const [resumeList, setResumeList] = useState([
-    { id: 1, value: 1000, isIncome: false, edit: false },
-    { id: 2, value: 1000, isIncome: true, edit: false },
-    { id: 3, value: 1000, isIncome: true, edit: false },
-    { id: 4, value: 1000, isIncome: true, edit: false },
+    {
+      id: 1,
+      value: 9999,
+      date: '2020-03-17',
+      concept: 'New Phone',
+      isIncome: false,
+      edit: false,
+    },
+    {
+      id: 2,
+      value: 1000,
+      date: '2020-02-14',
+      concept: 'Won the lotery',
+      isIncome: true,
+      edit: false,
+    },
+    {
+      id: 3,
+      value: 1000,
+      date: '2020-04-21',
+      concept: 'Sold my old phone',
+      isIncome: true,
+      edit: false,
+    },
+    {
+      id: 4,
+      value: 1000,
+      date: '2020-05-31',
+      concept: 'Worked as Uber',
+      isIncome: true,
+      edit: false,
+    },
   ]);
 
-  const sumitEditForm = (event, obj, isIncomeValue = obj.isIncome) => {
+  const sumitEditForm = (
+    event,
+    obj,
+    isIncomeValue = obj.isIncome,
+    dateValue = obj.date
+  ) => {
     const newResumeList = [...resumeList];
 
-    const inputValue = event.target.closest('form').querySelector('input')
+    const inputValue = event.target.closest('form').querySelector('#number')
       .value;
     const resumeElementIndex = newResumeList.findIndex((element) => {
       return obj.id === element.id;
@@ -31,6 +64,7 @@ function App() {
     newResumeELement.value = parseInt(inputValue);
     newResumeELement.isIncome = isIncomeValue;
     newResumeELement.edit = false;
+    newResumeELement.date = dateValue;
 
     newResumeList[resumeElementIndex] = newResumeELement;
     setResumeList(newResumeList);
@@ -67,15 +101,17 @@ function App() {
     return sum;
   };
 
-  const sumitAddHandler = (event, isIncomeValue) => {
+  const sumitAddHandler = (event, isIncomeValue, dateValue, conceptValue) => {
     const inputValue = parseInt(
-      event.target.parentElement.querySelector('input').value.trim()
+      event.target.parentElement.querySelector('#number').value.trim()
     );
     const newResumeList = [...resumeList];
 
     const newResumeELement = {
       id: newResumeList[newResumeList.length - 1].id + 1,
       value: inputValue,
+      date: dateValue,
+      concept: conceptValue,
       isIncome: isIncomeValue,
       edit: false,
     };
@@ -88,7 +124,7 @@ function App() {
   };
 
   const creatingJsxResumeList = (list) => {
-    let newList = list.length <11 ? list : list.slice(list.length-10)
+    let newList = list.length < 11 ? list : list.slice(list.length - 10);
     return newList.map((eachObj) => {
       let isIncome;
 
@@ -104,7 +140,9 @@ function App() {
         <li key={eachObj.id}>
           <ItemResume
             style={eachObj.isIncome ? { color: 'green' } : { color: 'red' }}
-            text={eachObj.value}></ItemResume>
+            amount={eachObj.value}
+            concept={eachObj.concept}
+            date={eachObj.date}></ItemResume>
           <Button
             click={(event) => {
               editHandler(event, eachObj);
@@ -121,13 +159,17 @@ function App() {
           <EditForm
             change={(event) => radioButtonHandler(event)}
             click={(event) => {
+              const value = event.target.closest('form').querySelector('#date')
+                .value;
+              let dateValue = value === '' ? eachObj.date : value;
               if (
-                event.target.closest('form').querySelector('input').value === ''
+                event.target.closest('form').querySelector('#number').value ===
+                ''
               ) {
                 return alert('you need to put a number');
               }
 
-              return sumitEditForm(event, eachObj, isIncome);
+              return sumitEditForm(event, eachObj, isIncome, dateValue);
             }}
             obj={eachObj}></EditForm>
         </li>
@@ -145,7 +187,9 @@ function App() {
             render={() => (
               <ResumePage
                 resumeNum={gettingResumeNum(resumeList)}
-                resumeList={creatingJsxResumeList(resumeList)}></ResumePage>
+                resumeList={creatingJsxResumeList(
+                  resumeList
+                ).reverse()}></ResumePage>
             )}
           />
           <Route

@@ -9,7 +9,23 @@ let Form = ({
 }) => {
   return (
     <form onSubmit={(event) => event.preventDefault()}>
-      <Input type='number' min='0' placeholder={obj.value}></Input>
+      <Input
+        id='date'
+        type='date'
+        placeholder={obj.date}
+        value={obj.date}></Input>
+      <Input
+        id='concept'
+        type='text'
+        value={obj.concept}
+        placeholder={'Let us know the concept behind'}></Input>
+      <Input
+        id='number'
+        type='number'
+        min='0'
+        placeholder={obj.value}
+        value={obj.value}></Input>
+
       {needsRadioButton ? (
         <div>
           <label>

@@ -7,14 +7,19 @@ const AddPage = ({ sumitHandler }) => {
   let isIncome;
 
   const clickHandler = (event) => {
-    if (event.target.closest('form').querySelector('input').value === '') {
+    const form = event.target.closest('form');
+
+    if (form.querySelector('#number').value === '') {
       return alert('you need to put a number');
     } else if (isIncome === undefined) {
       return alert(
         'Sorry but you will need to specify if it it an Income or not '
       );
     }
-    return sumitHandler(event, isIncome);
+    const dateValue = form.querySelector('#date').value;
+    const conceptValue = form.querySelector('#concept').value.trim();
+
+    return sumitHandler(event, isIncome, dateValue, conceptValue);
   };
 
   const changeHandler = (event) => {
