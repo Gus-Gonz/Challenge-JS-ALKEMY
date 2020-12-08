@@ -1,0 +1,182 @@
+body {
+  background-color: #331a4f;
+  color: #eeffee;
+  text-align: center;
+  font-weight: 700;
+}
+
+section {
+  margin: auto;
+  padding: 10px 15px;
+  min-height: 30rem;
+
+  list-style: none;
+
+  border-radius: 10px;
+
+  min-width: 300px;
+  max-width: 800px;
+  background: linear-gradient(#a980c3, #331a4f);
+}
+
+header {
+  margin: 2rem 1rem;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+.base-button {
+  cursor: pointer;
+
+  background: #dda8ff;
+  border: none;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.add-task-button {
+  height: 3rem;
+  width: 10rem;
+  font-size: xx-large;
+  color: #331a4f;
+  font-weight: 700;
+}
+
+.delete-task-button {
+  height: 2rem;
+  width: 100%;
+
+  background-color: #331a4f;
+
+  color: #af2151;
+  font-weight: 700;
+}
+
+.edit-task-button {
+  width: 100%;
+
+  height: 2rem;
+  background-color: #331a4f;
+  color: #cc9123;
+  font-weight: 700;
+}
+
+.resume-element {
+  text-align: justify;
+  display: grid;
+  grid-template-columns: 80% 18%;
+  margin-top: 1rem;
+  padding: 10px 20px;
+
+  color: #331a4f;
+  background-color: #dda8ff;
+
+  border-radius: 20px;
+  box-shadow: 5px 8px 10px#331a4f;
+}
+
+.info-resume-element {
+  min-height: 110px;
+}
+
+.concept-info {
+  display: grid;
+  grid-template-columns: 80px 70%;
+}
+
+.concept-info label {
+  padding-top: 1rem;
+}
+
+.date-amount-info {
+  display: grid;
+  grid-template-columns: 80px 70%;
+}
+
+.button-wrapper {
+  display: grid;
+}
+
+.button-wrapper button {
+  margin-top: 1rem;
+  float: left;
+}
+
+.edit-form {
+  display: grid;
+  grid-template-columns: 80% 18%;
+}
+
+.edit-element {
+  text-align: justify;
+  margin-top: 1rem;
+  padding: 10px 20px;
+
+  color: #331a4f;
+  background-color: #dda8ff;
+
+  border-radius: 20px;
+  box-shadow: 5px 8px 10px#331a4f;
+}
+
+.submit-button {
+  margin-top: 2.5rem;
+  inline-size: auto;
+  height: 2.3rem;
+  width: 100%;
+  background-color: #331a4f;
+  color: #4bcc23;
+  font-weight: 700;
+}
+
+.edit-data {
+  display: grid;
+  padding-top: 5px;
+  grid-template-columns: 30% 60%;
+  text-align: end;
+}
+.edit-data label {
+  padding-top: 5px;
+  padding-right: 5px;
+}
+.edit-data input {
+  font-weight: 700;
+  border: none;
+  margin-top: 4px;
+  background-color: #817a8b;
+  color: white;
+  cursor: text;
+
+  border-radius: 5px;
+  height: 25px;
+}
+.radio-button-wrappers {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  text-align: center;
+}
+.radio-button-wrappers input {
+  margin-left: 1rem;
+  height: 20px;
+  width: 20px;
+}
+
+@media only screen and (max-width: 520px) {
+  .radio-button-wrappers {
+    display: grid;
+    grid-template-rows: 50% 50%;
+    grid-template-columns: none;
+
+    text-align: justify;
+  }
+  .submit-button{
+      padding:0;
+      font-size: 12px;
+      height: 3rem;
+      margin-top: 4rem;
+  }
+
+}

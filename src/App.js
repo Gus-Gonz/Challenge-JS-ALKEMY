@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+import './App.css';
+
+//COMPONENTS
 
 import ItemResume from './components/ItemResume/ItemResume';
 import Button from './components/Button/Button';
-import Input from './components/Input/Input';
 import EditForm from './containers/Form/Form';
+
+//PAGES
 
 import ResumePage from './pages/ResumePage';
 import AddPage from './pages/AddPage';
-import ExprensesPage from './pages/ExprensesPage';
 
 function App() {
   const [resumeList, setResumeList] = useState([
@@ -56,6 +60,8 @@ function App() {
 
     const inputValue = event.target.closest('form').querySelector('#number')
       .value;
+    const inputConcept = event.target.closest('form').querySelector('#concept')
+      .value;
     const resumeElementIndex = newResumeList.findIndex((element) => {
       return obj.id === element.id;
     });
@@ -64,6 +70,7 @@ function App() {
     newResumeELement.value = parseInt(inputValue);
     newResumeELement.isIncome = isIncomeValue;
     newResumeELement.edit = false;
+    newResumeELement.concept = inputConcept;
     newResumeELement.date = dateValue;
 
     newResumeList[resumeElementIndex] = newResumeELement;
@@ -103,12 +110,17 @@ function App() {
 
   const sumitAddHandler = (event, isIncomeValue, dateValue, conceptValue) => {
     const inputValue = parseInt(
-      event.target.parentElement.querySelector('#number').value.trim()
+      event.target.parentElement
+        .closest('form')
+        .querySelector('#number')
+        .value.trim()
     );
     const newResumeList = [...resumeList];
 
     const newResumeELement = {
-      id: newResumeList[newResumeList.length - 1].id + 1,
+      id: newResumeList[newResumeList.length - 1]
+        ? newResumeList[newResumeList.length - 1].id + 1
+        : 1,
       value: inputValue,
       date: dateValue,
       concept: conceptValue,
@@ -119,7 +131,7 @@ function App() {
     newResumeList.push(newResumeELement);
     setResumeList(newResumeList);
 
-    event.target.parentElement.querySelector('input').value = '';
+    // event.target.parentElement.closest().querySelector('input').value = '';
     event.target.closest('main').querySelector('nav').firstElementChild.click();
   };
 
@@ -137,25 +149,31 @@ function App() {
       };
 
       return !eachObj.edit ? (
-        <li key={eachObj.id}>
+        <li key={eachObj.id} className='resume-element'>
           <ItemResume
+            className='info-resume-element'
             style={eachObj.isIncome ? { color: 'green' } : { color: 'red' }}
+            labelConcept='Concept:'
             amount={eachObj.value}
             concept={eachObj.concept}
             date={eachObj.date}></ItemResume>
-          <Button
-            click={(event) => {
-              editHandler(event, eachObj);
-            }}
-            text='Edit'></Button>
-          <Button
-            click={() => {
-              deleteHandler(eachObj.id);
-            }}
-            text='Delete'></Button>
+          <div className='button-wrapper'>
+            <Button
+              className='edit-task-button base-button'
+              click={(event) => {
+                editHandler(event, eachObj);
+              }}
+              text='Edit'></Button>
+            <Button
+              className='delete-task-button base-button'
+              click={() => {
+                deleteHandler(eachObj.id);
+              }}
+              text='Delete'></Button>
+          </div>
         </li>
       ) : (
-        <li key={eachObj.id}>
+        <li key={eachObj.id} className='edit-element'>
           <EditForm
             change={(event) => radioButtonHandler(event)}
             click={(event) => {

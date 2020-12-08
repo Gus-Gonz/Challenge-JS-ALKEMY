@@ -1,9 +1,21 @@
-const ItemResume = ({ amount, style, date, concept }) => {
+const ItemResume = ({
+  amount,
+  style,
+  date,
+  concept,
+  labelConcept,
+  className,
+}) => {
   return (
-    <div>
-      <p>{date}</p>
-      <p>{concept}</p>
-      <p style={style}>Amount: {amount}</p>
+    <div className={className}>
+      <div className='concept-info'>
+        <label>{labelConcept}</label>
+        <p>{concept}</p>
+      </div>
+      <div className='date-amount-info'>
+        <p>{date}</p>
+        <p style={style}>Amount: {amount}</p>
+      </div>
     </div>
   );
 };

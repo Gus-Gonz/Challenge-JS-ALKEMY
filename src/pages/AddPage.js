@@ -36,10 +36,12 @@ const AddPage = ({ sumitHandler }) => {
   return (
     <section>
       <Header></Header>
-      <AddForm
-        needsRadioButton={true}
-        click={(event) => clickHandler(event)}
-        change={(event) => changeHandler(event)}></AddForm>
+      <div className='edit-element'>
+        <AddForm
+          needsRadioButton={true}
+          click={(event) => clickHandler(event)}
+          change={(event) => changeHandler(event)}></AddForm>
+      </div>
     </section>
   );
 };

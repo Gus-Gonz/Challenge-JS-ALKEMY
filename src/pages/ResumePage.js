@@ -11,7 +11,7 @@ const ResumePage = ({ resumeList, resumeNum }) => {
   return (
     <section>
       <Header></Header>
-      <Link to={'/adding'}><Button style={{fontSize: '50px'}} text="+"></Button></Link>
+      <Link to={'/adding'}><Button className='add-task-button base-button' text="+"></Button></Link>
       <H1 text={`Current Balance: ${resumeNum}`}></H1>
       <ResumeTable resumeList={resumeList}></ResumeTable>
     </section>
